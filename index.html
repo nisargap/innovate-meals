@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+
+<html>
+  
+<head>
+    
+<meta charset="UTF-8" />
+    
+<title>Hello World</title>
+    
+<script src="https://unpkg.com/react@latest/dist/react.js"></script>
+    
+<script src="https://unpkg.com/react-dom@latest/dist/react-dom.js"></script>
+    
+<script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+  
+</head>
+  
+<body>
+    
+<div id="root"></div>
+
+    
+<script type="text/babel">
+
+ 
+
+	// Menu: Cheese Pizza, Hamburger, Pasta, Coffee
+
+	class Recipe extends React.Component {
+
+		constructor() {
+			super();
+			this.state = {
+				recipe: ""
+			}
+		}
+		
+		setRecipe() {
+			switch(this.props.item) {
+			
+				case "cheese pizza":
+
+					var pizza = (
+						<div>
+						Cheese and Dough<br />
+							<img 
+
+src="http://www.jackspizza.com/media/1039/cheese.jpg" alt="pizza image" />
+						</div>
+					);
+					this.setState({
+
+						recipe: (pizza)
+
+					});
+					break;
+				case "hamburger":
+					var hamburger = (
+					<div>
+						Buns, Lettuce, Tomatoes, Patty<br />
+						<img 
+
+src="http://static2.businessinsider.com/image/56b101ba58c32394008b7468-480/daves-
+
+single.jpg" alt="hamburger" />
+					</div>
+				
+					);
+					this.setState({
+
+						recipe: (hamburger)
+
+					});
+					break;
+				case "pasta":
+					var pasta = (
+						<div>
+						Wheat, tomato sauce, oregano<br />
+						<img src="http://www.budgetbytes.com/wp-
+
+content/uploads/2016/07/Pasta-with-Butter-Tomato-Sauce-and-Toasted-Bread-Crumbs-
+
+forkful.jpg" alt="pasta" />
+
+						</div>
+					)
+					this.setState({
+
+						recipe: (pasta)
+
+					});
+					break;
+				case "coffee":
+					var coffee = (
+<div>
+						Coffee beans, water, milk <br />
+						<img 
+
+src="https://onelastline.files.wordpress.com/2013/12/dunkscoffee.jpg" alt="coffee" />
+</div>
+					)
+					this.setState({
+
+						recipe: (coffee)
+
+					});
+					break;
+				default:
+					alert("please type a valid menu item!");
+
+			}
+
+		}
+		render() {
+			this.setRecipe();
+			return (
+		<div>
+			<h1>Recipe for {this.props.item}</h1>
+			<strong>{this.state.recipe}</strong>
+		</div>);
+		}
+
+	}
+
+	class App extends React.Component {
+		
+		constructor() {
+			super();
+			this.state = {
+				
+		menu: ["cheese pizza", "hamburger", "pasta", "coffee"],
+		userInput: "",
+		recipe: ""
+
+			}	
+		
+		}
+
+		handleRecipe() {
+			switch(this.state.userInput) {
+			
+				case "cheese pizza":
+					this.setState({
+
+						recipe: (<Recipe item="cheese pizza" />)
+
+					});
+					break;
+				case "hamburger":
+					this.setState({
+
+						recipe: (<Recipe item="hamburger" />)
+
+					});
+					break;
+				case "pasta":
+					this.setState({
+
+						recipe: (<Recipe item="pasta" />)
+
+					});
+					break;
+				case "coffee":
+					this.setState({
+
+						recipe: (<Recipe item="coffee" />)
+
+					});
+					break;
+				default:
+					alert("please type a valid menu item!");
+
+			}
+		}
+
+		handleUserInput(event) {
+			event.preventDefault();
+			this.setState({ userInput: event.target.value });
+		}
+		
+		render() {
+
+			
+			var menuComponents = [];
+			for(var i = 0; i < this.state.menu.length; ++i) {
+				
+				menuComponents.push(<h4>{this.state.menu[i]}</h4>);
+	
+			}
+			return (
+			<div>
+				<h1>What's cooking</h1>
+				<h2>Menu</h2>
+				{menuComponents}
+				<input type="text" onChange={this.handleUserInput.bind
+
+(this)} placeholder="Input a menu item" />
+			<button onClick={this.handleRecipe.bind(this)}>Get 
+
+Recipe</button>
+			{this.state.recipe}
+			</div>
+			);
+		}	
+	
+	}
+	    
+	ReactDOM.render(<App />, document.getElementById('root')
+);
+
+    
+</script>
+  
+</body>
+</html>
